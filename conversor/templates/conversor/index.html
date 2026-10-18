@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizador de Representación de Datos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1, h2 { color: #333; margin-top: 0; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #0056b3; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        button:hover { background: #004494; }
+        .error { background: #ffe6e6; color: #d93025; padding: 10px; border-radius: 4px; margin-top: 15px; border-left: 4px solid #d93025; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analizador de Representación de Datos</h1>
+
+        <!-- Formulario 1: Sistemas Numéricos -->
+        <div class="card">
+            <h2>1. Conversor Numérico</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="form_numero" value="1">
+                <label>Número:</label>
+                <input type="text" name="numero" placeholder="Ej: 2AF, 1010, 255" required>
+                <label>Base de origen:</label>
+                <select name="base">
+                    <option value="2">Binario (Base 2)</option>
+                    <option value="8">Octal (Base 8)</option>
+                    <option value="10" selected>Decimal (Base 10)</option>
+                    <option value="16">Hexadecimal (Base 16)</option>
+                </select>
+                <button type="submit">Convertir</button>
+            </form>
+
+            {% if error_num %}<div class="error">{{ error_num }}</div>{% endif %}
+            
+            {% if resultado_num %}
+            <table>
+                <tr><th>Decimal</th><td>{{ resultado_num.decimal }}</td></tr>
+                <tr><th>Binario (Ajustado)</th><td>{{ resultado_num.binario }}</td></tr>
+                <tr><th>Octal</th><td>{{ resultado_num.octal }}</td></tr>
+                <tr><th>Hexadecimal</th><td>{{ resultado_num.hexadecimal }}</td></tr>
+                <tr><th>Bits Significativos</th><td>{{ resultado_num.bits }}</td></tr>
+                <tr><th>Bytes Necesarios</th><td>{{ resultado_num.bytes }}</td></tr>
+            </table>
+            {% endif %}
+        </div>
+
+        <!-- Formulario 2: Codificación UTF-8 -->
+        <div class="card">
+            <h2>2. Análisis de Codificación (UTF-8)</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="form_texto" value="1">
+                <label>Texto (Máx. 20 caracteres):</label>
+                <input type="text" name="texto" placeholder="Ej: Año" maxlength="20" required>
+                <button type="submit">Analizar Texto</button>
+            </form>
+
+            {% if error_texto %}<div class="error">{{ error_texto }}</div>{% endif %}
+
+            {% if resultado_texto %}
+            <table>
+                <tr>
+                    <th>Carácter</th>
+                    <th>Decimal</th>
+                    <th>Código U+</th>
+                    <th>Hexadecimal</th>
+                    <th>Bytes UTF-8</th>
+                </tr>
+                {% for item in resultado_texto %}
+                <tr>
+                    <td>{{ item.caracter }}</td>
+                    <td>{{ item.decimal }}</td>
+                    <td>{{ item.u_hex }}</td>
+                    <td>{{ item.hexadecimal }}</td>
+                    <td>{{ item.utf8_bytes }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
