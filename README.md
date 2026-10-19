@@ -38,3 +38,6 @@ III. Entrada / Salida (E/S): Las peticiones HTTP ingresadas en los formularios w
 ## ¿Por qué el contenedor de Docker comparte el kernel del Host?
 
 A diferencia de una máquina virtual pesada que requiere instalar un sistema operativo invitado completo, los contenedores utilizan la tecnología de aislamiento de procesos de Linux (Namespaces para aislar la red y los procesos, y Cgroups para limitar los recursos como los 256MB de RAM). Esto permite que el contenedor ejecute sus procesos directamente sobre el kernel del sistema host, compartiendo sus llamadas al sistema (syscalls). Esto hace que la aplicación sea extremadamente ligera, rápida y consuma los recursos mínimos necesarios.
+
+# Evidencia
+https://drive.google.com/file/d/1wdPNAOV3mDGIBD1RH4ujQ9zEdS9byzy4/view?usp=sharing
