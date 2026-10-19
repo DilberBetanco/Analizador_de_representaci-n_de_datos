@@ -16,13 +16,15 @@ docker compose up --build
 
 Acceder a la aplicación desde el navegador:
 
-URL: http://localhost:8000/
+```URL: http://localhost:8000/```
 
 Verificar el límite de recursos (256 MB de RAM y 1 CPU):
 
-Bash
-docker stats analizador_datos_app
-Explicación Técnica y Arquitectura
+```docker stats analizador_datos_app```
+
+
+###Explicación Técnica y Arquitectura###
+
 Uso de Recursos de la Arquitectura de Von Neumann
 La aplicación web interactúa con los componentes del modelo de Von Neumann de la siguiente manera:
 
