@@ -23,7 +23,7 @@ Verificar el límite de recursos (256 MB de RAM y 1 CPU):
 ```docker stats analizador_datos_app```
 
 
-###Explicación Técnica y Arquitectura
+## Explicación Técnica y Arquitectura
 
 Uso de Recursos de la Arquitectura de Von Neumann
 La aplicación web interactúa con los componentes del modelo de Von Neumann de la siguiente manera:
